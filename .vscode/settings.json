@@ -1,0 +1,16 @@
+{
+    "terminal.integrated.defaultProfile.osx": "Zephyr IDE Terminal",
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/.vscode/compile_commands.json",
+    "cmake.configureOnOpen": false,
+    "terminal.integrated.defaultProfile.osx": "Zephyr IDE Terminal",
+    "terminal.integrated.env.osx": {
+        "ZEPHYR_BASE": "${workspaceFolder}/firmware/external/zephyr",
+        "PATH": "${workspaceFolder}/firmware/.venv/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${env:PATH}"
+    },
+    "terminal.integrated.automationProfile.osx": {
+        "path": "/bin/zsh",
+        "args": [
+            "-i"
+        ]
+    },
+}
