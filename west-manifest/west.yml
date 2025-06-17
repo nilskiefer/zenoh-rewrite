@@ -2,6 +2,10 @@ manifest:
   remotes:
     - name: zephyrproject
       url-base: https://github.com/zephyrproject-rtos
+    - name: eclipse-zenoh
+      url-base: https://github.com/eclipse-zenoh
+    - name: nilskiefer
+      url-base: https://github.com/nilskiefer
   projects:
     - name: zephyr
       repo-path: zephyr
@@ -10,3 +14,11 @@ manifest:
       clone-depth: 1
       import:
         path-prefix: external
+    - name: zenoh-pico
+      repo-path: zenoh-pico
+      remote: nilskiefer
+      revision: zephyr-serial-transport
+      clone-depth: 1
+      path: external/modules/lib/zenoh-pico
+  self:
+    path: west-manifest
