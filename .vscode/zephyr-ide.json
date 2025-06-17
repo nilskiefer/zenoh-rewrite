@@ -44,7 +44,13 @@
             "overlay": [],
             "extraOverlay": []
           },
-          "runnerConfigs": {}
+          "runnerConfigs": {
+            "default": {
+              "runner": "default",
+              "name": "default",
+              "args": ""
+            }
+          }
         }
       },
       "confFiles": {

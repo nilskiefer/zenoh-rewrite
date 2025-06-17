@@ -8,58 +8,54 @@
 #define VALUE "[PORTABLE] Pub from Zenoh-Pico!"
 
 void main(void) {
-    printf("=== Portable Zenoh Publisher ===\n");
+    printf("=== Testing Zenoh Serial Transport ===\n");
     printf("Board: %s\n", CONFIG_BOARD);
-    printf("Console device: %s\n",
-#ifdef CONFIG_USB_CDC_ACM
-           "USB CDC ACM"
-#else
-           "UART"
-#endif
-    );
 
     // Wait for console to be ready
-    k_sleep(K_SECONDS(2));
+    k_sleep(K_SECONDS(1));
 
-    // Configure Zenoh session
-    z_owned_config_t config;
-    if (z_config_default(&config) != 0) {
-        printf("Unable to create config!\n");
+    printf("Testing keyexpr creation...\n");
+    z_owned_keyexpr_t keyexpr;
+    if (z_keyexpr_from_str(&keyexpr, KEYEXPR) != 0) {
+        printf("❌ Unable to create keyexpr!\n");
         return;
     }
+    printf("✓ Keyexpr created successfully\n");
 
-    // Use a generic serial endpoint - the transport will use the active console device
+    printf("Testing config creation...\n");
+    z_owned_config_t config;
+    if (z_config_default(&config) != 0) {
+        printf("❌ Unable to create config!\n");
+        return;
+    }
+    printf("✓ Config created successfully\n");
+
+    // Configure for serial transport with more debugging
+    printf("Configuring serial transport...\n");
     zp_config_insert(z_loan_mut(config), Z_CONFIG_MODE_KEY, "client");
     zp_config_insert(z_loan_mut(config), Z_CONFIG_CONNECT_KEY, "serial/console#baudrate=115200");
+    printf("✓ Serial transport configured\n");
 
     printf("Opening Zenoh Session...\n");
     z_owned_session_t session;
-    if (z_open(&session, z_move(config), NULL) != 0) {
-        printf("Unable to open session!\n");
-        printf("Make sure zenohd is running and connected to this device\n");
+    z_result_t result = z_open(&session, z_move(config), NULL);
+    if (result != 0) {
+        printf("❌ Unable to open session! Error: %d\n", result);
         return;
     }
-    printf("✓ Zenoh session opened\n");
+    printf("✓ Zenoh session opened successfully!\n");
 
     printf("Declaring publisher for '%s'...\n", KEYEXPR);
-    z_owned_keyexpr_t keyexpr;
-    if (z_keyexpr_from_str(&keyexpr, KEYEXPR) != 0) {
-        printf("Unable to create keyexpr!\n");
-        return;
-    }
-
     z_owned_publisher_t pub;
     if (z_declare_publisher(z_loan(session), &pub, z_loan(keyexpr), NULL) != 0) {
-        printf("Unable to declare publisher!\n");
+        printf("❌ Unable to declare publisher!\n");
+        z_drop(z_move(session));
+        z_drop(z_move(keyexpr));
         return;
     }
     printf("✓ Publisher declared\n");
 
     printf("\n🚀 Ready! Publishing data every second...\n");
-    printf("💡 Usage:\n");
-    printf("   1. Connect this device via USB/UART\n");
-    printf("   2. Run: zenohd\n");
-    printf("   3. Listen: z_sub \"demo/example/**\"\n\n");
 
     char buf[256];
     int idx = 0;
@@ -76,6 +72,15 @@ void main(void) {
 
         if (res != 0) {
             printf("⚠️  Failed to publish (error: %d)\n", res);
+        } else {
+            printf("✅ Published successfully!\n");
         }
     }
+
+    // Cleanup (never reached in this example)
+    z_drop(z_move(pub));
+    z_drop(z_move(session));
+    z_drop(z_move(keyexpr));
+
+    printf("✓ Test completed successfully!\n");
 }
