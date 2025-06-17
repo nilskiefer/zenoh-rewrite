@@ -1,5 +1,4 @@
 {
-    "terminal.integrated.defaultProfile.osx": "Zephyr IDE Terminal",
     "C_Cpp.default.compileCommands": "${workspaceFolder}/.vscode/compile_commands.json",
     "cmake.configureOnOpen": false,
     "terminal.integrated.defaultProfile.osx": "Zephyr IDE Terminal",
@@ -12,5 +11,26 @@
         "args": [
             "-i"
         ]
+    },
+    "files.associations": {
+        "primitives.h": "c",
+        "array": "c",
+        "complex": "c",
+        "memory": "c",
+        "istream": "c",
+        "locale": "c",
+        "variant": "c",
+        "__hash_table": "cpp",
+        "__tree": "cpp",
+        "type_traits": "cpp",
+        "forward_list": "cpp",
+        "limits": "cpp",
+        "ratio": "cpp",
+        "zephyr.h": "c",
+        "config.h": "c",
+        "refcount.h": "c",
+        "element.h": "c",
+        "string.h": "c",
+        "*.in": "cpp"
     },
 }

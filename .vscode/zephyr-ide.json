@@ -1,3 +1,58 @@
 {
-  "projects": {}
+  "projects": {
+    "basic-zenoh-test": {
+      "rel_path": "Projects/basic-zenoh-test",
+      "name": "basic-zenoh-test",
+      "buildConfigs": {
+        "build/teensy40": {
+          "board": "teensy40",
+          "relBoardSubDir": "pjrc/teensy4",
+          "name": "build/teensy40",
+          "westBuildArgs": "",
+          "westBuildCMakeArgs": " -DCONFIG_DEBUG_OPTIMIZATIONS=y -DCONFIG_DEBUG_THREAD_INFO=y ",
+          "confFiles": {
+            "config": [],
+            "extraConfig": [],
+            "overlay": [],
+            "extraOverlay": []
+          },
+          "runnerConfigs": {}
+        },
+        "build/reel_board": {
+          "board": "reel_board",
+          "relBoardSubDir": "phytec/reel_board",
+          "name": "build/reel_board",
+          "westBuildArgs": "",
+          "westBuildCMakeArgs": " -DCONFIG_DEBUG_OPTIMIZATIONS=y -DCONFIG_DEBUG_THREAD_INFO=y ",
+          "confFiles": {
+            "config": [],
+            "extraConfig": [],
+            "overlay": [],
+            "extraOverlay": []
+          },
+          "runnerConfigs": {}
+        },
+        "build/esp32c3_supermini": {
+          "board": "esp32c3_supermini",
+          "relBoardSubDir": "others/esp32c3_supermini",
+          "name": "build/esp32c3_supermini",
+          "westBuildArgs": "",
+          "westBuildCMakeArgs": " -DCONFIG_DEBUG_OPTIMIZATIONS=y -DCONFIG_DEBUG_THREAD_INFO=y ",
+          "confFiles": {
+            "config": [],
+            "extraConfig": [],
+            "overlay": [],
+            "extraOverlay": []
+          },
+          "runnerConfigs": {}
+        }
+      },
+      "confFiles": {
+        "config": [],
+        "extraConfig": [],
+        "overlay": [],
+        "extraOverlay": []
+      }
+    }
+  }
 }
